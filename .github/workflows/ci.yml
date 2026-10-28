@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Установка зависимостей и сборка
+        run: make setup
+
+      - name: В собранной странице нет тега script
+        run: |
+          if grep -q '<script' dist/index.html; then
+            echo 'В dist/index.html найден тег <script>'
+            exit 1
+          fi

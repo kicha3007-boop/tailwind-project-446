@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ru" class="scroll-pt-20 motion-safe:scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubercraft — игра про мир из блоков</title>
+    <meta name="description" content="Лендинг игры Kubercraft: режимы, издания, вопросы и предзаказ." />
+    <link rel="icon" type="image/png" href="./images/grass.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="tile-dirt font-sans text-white nether:tile-netherrack">
+    <!-- Липкая обёртка шапки: при прокрутке шапка остаётся наверху -->
+    <div class="sticky top-0 z-40">
+      <header
+        data-testid="site-header"
+        class="border-b-4 border-black bg-rock-900/95 py-3 nether:bg-[#1a0808]/95"
+      >
+        <div class="container-page flex items-center justify-between gap-3">
+          <a href="#" class="flex items-center gap-3 font-heading text-xl font-bold text-white pixel-shadow">
+            <img src="./images/grass.png" alt="" class="size-8 pixelated" />
+            KUBERCRAFT
+          </a>
+
+          <nav aria-label="Разделы" class="hidden md:block">
+            <ul class="flex gap-6">
+              <li><a href="#features" class="nav-link">Особенности</a></li>
+              <li><a href="#modes" class="nav-link">Режимы</a></li>
+              <li><a href="#gallery" class="nav-link">Скриншоты</a></li>
+              <li><a href="#editions" class="nav-link">Издания</a></li>
+              <li><a href="#faq" class="nav-link">Вопросы</a></li>
+            </ul>
+          </nav>
+
+          <div class="flex items-center gap-3">
+            <!-- Переключатель мира: флажок внутри подписи, ползунок видит его через group-has-checked -->
+            <label data-testid="world-toggle" class="group flex cursor-pointer items-center gap-2">
+              <input type="checkbox" id="world-nether" class="peer sr-only" />
+              <span
+                class="relative h-8 w-14 border-2 border-black bg-accent bevel-pressed peer-focus-visible:outline-4 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold-400"
+                aria-hidden="true"
+              >
+                <span
+                  class="absolute top-0.5 left-0.5 size-6 bg-rock-300 bevel group-has-checked:translate-x-6 motion-safe:transition-transform"
+                ></span>
+              </span>
+              <span class="hidden text-lg md:inline">
+                <span class="group-has-checked:hidden">Верхний мир</span>
+                <span class="hidden group-has-checked:inline">Нижний мир</span>
+              </span>
+              <span class="sr-only md:hidden">Нижний мир</span>
+            </label>
+
+            <button
+              type="button"
+              data-testid="menu-button"
+              popovertarget="mobile-menu"
+              aria-label="Открыть меню"
+              class="btn size-11 p-0 md:hidden"
+            >
+              ☰
+            </button>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <!-- Мобильное меню: всплывающее окно браузера, без скриптов -->
+    <div
+      id="mobile-menu"
+      popover
+      data-testid="mobile-menu"
+      class="panel fixed inset-y-0 right-0 left-auto m-0 h-dvh max-h-none w-72 flex-col backdrop:bg-black/60 open:flex"
+    >
+      <button
+        type="button"
+        popovertarget="mobile-menu"
+        popovertargetaction="hide"
+        aria-label="Закрыть меню"
+        class="btn size-11 self-end bg-rock-700 p-0"
+      >
+        ×
+      </button>
+      <nav aria-label="Разделы" class="mt-2.5">
+        <ul class="flex flex-col">
+          <li><a href="#features" class="menu-link">Особенности</a></li>
+          <li><a href="#modes" class="menu-link">Режимы</a></li>
+          <li><a href="#gallery" class="menu-link">Скриншоты</a></li>
+          <li><a href="#editions" class="menu-link">Издания</a></li>
+          <li><a href="#faq" class="menu-link">Вопросы</a></li>
+        </ul>
+      </nav>
+      <a href="#preorder" class="btn btn-primary mt-auto w-full">Предзаказ</a>
+    </div>
+
+    <main>
+      <!-- Главный экран -->
+      <section
+        data-testid="hero"
+        class="border-b-4 border-black bg-[url(./images/panorama-overworld.png)] bg-cover bg-center py-24 text-center pixelated md:py-36 nether:bg-[url(./images/panorama-nether.png)]"
+      >
+        <div class="relative mx-auto w-fit">
+          <h1 class="font-heading text-5xl font-bold tracking-wider text-rock-300 [text-shadow:6px_6px_0_rgb(0_0_0/0.6)] sm:text-7xl md:text-8xl">
+            KUBERCRAFT
+          </h1>
+          <p
+            class="absolute right-0 -bottom-8 -rotate-12 text-lg text-gold-400 pixel-shadow md:-right-12 md:-bottom-6.5 md:-rotate-18 md:text-xl"
+          >
+            <span class="inline-block motion-safe:animate-splash">Теперь с YAML!</span>
+          </p>
+        </div>
+        <div class="px-4">
+          <p class="mx-auto mt-14 max-w-xl bg-black/50 px-4 py-2 text-lg md:text-xl">
+            Мир из блоков, где каждый кластер надо сначала построить. Копай, строй и переживи ночь.
+          </p>
+          <div class="mx-auto mt-8 flex w-fit flex-col gap-4 sm:flex-row">
+            <a href="#preorder" class="btn btn-primary">Играть бесплатно</a>
+            <a href="#gallery" class="btn">Смотреть скриншоты</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Что внутри -->
+      <section id="features" data-testid="features" class="section">
+        <div class="container-page">
+          <h2 class="section-title">Что внутри</h2>
+          <ul class="grid gap-6 md:grid-cols-4">
+            <li class="panel">
+              <img src="./images/pickaxe.png" alt="" class="size-16 pixelated" />
+              <h3 class="card-title mt-4 text-xl">Копай вглубь</h3>
+              <p class="mt-2 text-ink-muted">
+                Под каждым блоком травы лежит ещё сотня. Где-то там алмазы, где-то лава, и узнать можно только киркой.
+              </p>
+            </li>
+            <li class="panel">
+              <img src="./images/planks.png" alt="" class="size-16 pixelated" />
+              <h3 class="card-title mt-4 text-xl">Строй что угодно</h3>
+              <p class="mt-2 text-ink-muted">
+                Замок, мост или копию своего офиса. Физика не мешает: дома спокойно висят в воздухе.
+              </p>
+            </li>
+            <li class="panel">
+              <img src="./images/hisser.png" alt="" class="size-16 pixelated" />
+              <h3 class="card-title mt-4 text-xl">Переживи ночь</h3>
+              <p class="mt-2 text-ink-muted">
+                С закатом выходят шипуны. Подходят тихо, шипят громко, и после них в стене остаётся дыра.
+              </p>
+            </li>
+            <li class="panel">
+              <img src="./images/sword.png" alt="" class="size-16 pixelated" />
+              <h3 class="card-title mt-4 text-xl">Играй с друзьями</h3>
+              <p class="mt-2 text-ink-muted">
+                Сервер на всю компанию. Кто-то строит, кто-то копает, кто-то случайно поджигает дом.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Режимы игры: радиокнопки стоят первыми, панели видят их через peer-checked -->
+      <section id="modes" data-testid="modes" class="section section-stone">
+        <div class="container-page">
+          <h2 class="section-title">Режимы игры</h2>
+          <div class="flex flex-wrap gap-3">
+            <input type="radio" name="mode" id="mode-survival" class="peer/survival sr-only" checked />
+            <input type="radio" name="mode" id="mode-creative" class="peer/creative sr-only" />
+            <input type="radio" name="mode" id="mode-hardcore" class="peer/hardcore sr-only" />
+
+            <label
+              for="mode-survival"
+              data-testid="mode-tab-survival"
+              class="btn peer-checked/survival:bg-accent peer-focus-visible/survival:outline-4 peer-focus-visible/survival:outline-offset-2 peer-focus-visible/survival:outline-gold-400"
+              >Выживание</label
+            >
+            <label
+              for="mode-creative"
+              data-testid="mode-tab-creative"
+              class="btn peer-checked/creative:bg-accent peer-focus-visible/creative:outline-4 peer-focus-visible/creative:outline-offset-2 peer-focus-visible/creative:outline-gold-400"
+              >Творчество</label
+            >
+            <label
+              for="mode-hardcore"
+              data-testid="mode-tab-hardcore"
+              class="btn peer-checked/hardcore:bg-accent peer-focus-visible/hardcore:outline-4 peer-focus-visible/hardcore:outline-offset-2 peer-focus-visible/hardcore:outline-gold-400"
+              >Хардкор</label
+            >
+
+            <article
+              data-testid="mode-panel-survival"
+              class="panel mode-panel peer-checked/survival:flex"
+            >
+              <img src="./images/apple.png" alt="" class="size-24 shrink-0 pixelated" />
+              <div>
+                <h3 class="card-title">Выживание</h3>
+                <p class="mt-2 text-ink-muted">
+                  Классика: добываешь ресурсы, строишь укрытие до заката и следишь за голодом. Вещи после гибели остаются лежать на месте, если успеешь за ними вернуться.
+                </p>
+                <ul class="mode-perks">
+                  <li>♥ Здоровье и голод</li>
+                  <li>☾ Шипуны по ночам</li>
+                  <li>▦ Верстак 3×3</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              data-testid="mode-panel-creative"
+              class="panel mode-panel peer-checked/creative:flex"
+            >
+              <img src="./images/planks.png" alt="" class="size-24 shrink-0 pixelated" />
+              <div>
+                <h3 class="card-title">Творчество</h3>
+                <p class="mt-2 text-ink-muted">
+                  Бесконечные блоки, полёт и ни одного шипуна. Режим для тех, кто пришёл строить.
+                </p>
+                <ul class="mode-perks">
+                  <li>∞ Все блоки сразу</li>
+                  <li>↑ Полёт</li>
+                  <li>✓ Урона нет</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              data-testid="mode-panel-hardcore"
+              class="panel mode-panel peer-checked/hardcore:flex"
+            >
+              <img src="./images/hisser.png" alt="" class="size-24 shrink-0 pixelated" />
+              <div>
+                <h3 class="card-title">Хардкор</h3>
+                <p class="mt-2 text-ink-muted">
+                  Одна жизнь на весь мир. Если персонаж погибает, мир удаляется вместе со всеми постройками.
+                </p>
+                <ul class="mode-perks">
+                  <li>♥ Одна жизнь</li>
+                  <li>!! Максимальная сложность</li>
+                  <li>✕ Мир удаляется</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Игровой интерфейс -->
+      <section data-testid="hud" class="section">
+        <div class="container-page">
+          <h2 class="section-title mb-0">Интерфейс, к которому быстро привыкаешь</h2>
+          <p class="mt-4 max-w-2xl bg-black/50 px-4 py-2">
+            Наведите курсор на предмет, чтобы увидеть подсказку. Слот выбирается кликом.
+          </p>
+
+          <div class="mx-auto mt-10 max-w-xl bg-black/40 p-3 sm:p-6">
+            <div class="flex flex-wrap justify-between gap-4">
+              <ul class="flex gap-0.5" aria-label="Здоровье: 8 из 10">
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon hud-icon-empty" /></li>
+                <li><img src="./images/heart.png" alt="" class="hud-icon hud-icon-empty" /></li>
+              </ul>
+              <ul class="flex gap-0.5" aria-label="Сытость: 6 из 8">
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon hud-icon-empty" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon hud-icon-empty" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+                <li><img src="./images/drumstick.png" alt="" class="hud-icon" /></li>
+              </ul>
+            </div>
+
+            <div class="relative mt-3 h-3 border-2 border-black bg-rock-900" aria-label="Опыт: уровень 27">
+              <div class="h-full w-[64%] bg-grass-400"></div>
+              <span class="absolute bottom-1.5 left-1/2 -translate-x-1/2 text-sm leading-none text-grass-400 pixel-shadow">27</span>
+            </div>
+
+            <!-- Хотбар: радиокнопка внутри слота, рамку выбранного слота включает has-checked -->
+            <ul class="mt-3 grid grid-cols-9 gap-1">
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" checked />
+                  <img src="./images/pickaxe.png" alt="Алмазная кирка" class="slot-item" />
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-rare">Алмазная кирка</span>
+                    <span class="tooltip-stat">Прочность: 1561 / 1561</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/sword.png" alt="Алмазный меч" class="slot-item" />
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-rare">Алмазный меч</span>
+                    <span class="tooltip-stat">Урон: 7</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/torch.png" alt="Факел" class="slot-item" />
+                  <span class="slot-count">64</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-common">Факел</span>
+                    <span class="tooltip-stat">Светит, пока стоит</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/apple.png" alt="Яблоко" class="slot-item" />
+                  <span class="slot-count">12</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-common">Яблоко</span>
+                    <span class="tooltip-stat">Сытость: +4</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/drumstick.png" alt="Жареная курица" class="slot-item" />
+                  <span class="slot-count">8</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-common">Жареная курица</span>
+                    <span class="tooltip-stat">Сытость: +6</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/potion.png" alt="Зелье ночного зрения" class="slot-item" />
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-epic">Зелье ночного зрения</span>
+                    <span class="tooltip-stat">Действует 8:00</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/grass.png" alt="Блок травы" class="slot-item" />
+                  <span class="slot-count">64</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-common">Блок травы</span>
+                    <span class="tooltip-stat">Сверху трава, внутри земля</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/planks.png" alt="Доски" class="slot-item" />
+                  <span class="slot-count">48</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-common">Доски</span>
+                    <span class="tooltip-stat">Из них собирают верстак</span>
+                  </span>
+                </label>
+              </li>
+              <li>
+                <label data-testid="hotbar-slot" class="slot group">
+                  <input type="radio" name="slot" class="sr-only" />
+                  <img src="./images/diamond.png" alt="Алмаз" class="slot-item" />
+                  <span class="slot-count">3</span>
+                  <span data-testid="item-tooltip" class="tooltip">
+                    <span class="block text-rarity-uncommon">Алмаз</span>
+                    <span class="tooltip-stat">Найден на глубине 12 блоков</span>
+                  </span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Галерея: миниатюра открывает всплывающее окно просмотра -->
+      <section id="gallery" data-testid="gallery" class="section section-stone">
+        <div class="container-page">
+          <h2 class="section-title">Скриншоты</h2>
+          <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <li>
+              <button type="button" data-testid="gallery-thumb" popovertarget="shot-night" class="thumb">
+                <img src="./images/shot-night.png" alt="Ночь в лесу" class="aspect-video w-full pixelated" />
+              </button>
+            </li>
+            <li>
+              <button type="button" data-testid="gallery-thumb" popovertarget="shot-cave" class="thumb">
+                <img src="./images/shot-cave.png" alt="Пещера с рудой" class="aspect-video w-full pixelated" />
+              </button>
+            </li>
+            <li>
+              <button type="button" data-testid="gallery-thumb" popovertarget="shot-build" class="thumb">
+                <img src="./images/shot-build.png" alt="Деревянный город на закате" class="aspect-video w-full pixelated" />
+              </button>
+            </li>
+            <li>
+              <button type="button" data-testid="gallery-thumb" popovertarget="shot-lava" class="thumb">
+                <img src="./images/shot-lava.png" alt="Лавовое море Нижнего мира" class="aspect-video w-full pixelated" />
+              </button>
+            </li>
+          </ul>
+
+          <div id="shot-night" popover data-testid="gallery-viewer" class="panel viewer">
+            <img src="./images/shot-night.png" alt="Ночь в лесу" class="w-full border-4 border-black pixelated" />
+            <div class="viewer-bar">
+              <p>Ночь в лесу. Факел лучше держать при себе.</p>
+              <button type="button" popovertarget="shot-night" popovertargetaction="hide" class="btn">Закрыть</button>
+            </div>
+          </div>
+          <div id="shot-cave" popover data-testid="gallery-viewer" class="panel viewer">
+            <img src="./images/shot-cave.png" alt="Пещера с рудой" class="w-full border-4 border-black pixelated" />
+            <div class="viewer-bar">
+              <p>Пещера. Голубые пятна в стене это алмазы.</p>
+              <button type="button" popovertarget="shot-cave" popovertargetaction="hide" class="btn">Закрыть</button>
+            </div>
+          </div>
+          <div id="shot-build" popover data-testid="gallery-viewer" class="panel viewer">
+            <img src="./images/shot-build.png" alt="Деревянный город на закате" class="w-full border-4 border-black pixelated" />
+            <div class="viewer-bar">
+              <p>Закат над деревянным городом. Строили его три вечера.</p>
+              <button type="button" popovertarget="shot-build" popovertargetaction="hide" class="btn">Закрыть</button>
+            </div>
+          </div>
+          <div id="shot-lava" popover data-testid="gallery-viewer" class="panel viewer">
+            <img src="./images/shot-lava.png" alt="Лавовое море Нижнего мира" class="w-full border-4 border-black pixelated" />
+            <div class="viewer-bar">
+              <p>Нижний мир. Лава тёплая, но купаться в ней не стоит.</p>
+              <button type="button" popovertarget="shot-lava" popovertargetaction="hide" class="btn">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Издания -->
+      <section id="editions" data-testid="editions" class="section">
+        <div class="container-page">
+          <h2 class="section-title">Издания</h2>
+          <ul class="grid gap-8 md:grid-cols-3">
+            <li class="panel flex flex-col">
+              <img src="./images/planks.png" alt="" class="size-12 pixelated" />
+              <h3 class="card-title mt-4">Деревянное</h3>
+              <p class="mt-1 text-ink-muted">Демоверсия на 100 игровых дней</p>
+              <p class="edition-price">0 ₽</p>
+              <ul class="edition-perks">
+                <li>▪ Один мир</li>
+                <li>▪ Режим выживания</li>
+                <li>▪ Игра на одном компьютере</li>
+              </ul>
+              <a href="#preorder" class="btn mt-auto w-full">Скачать</a>
+            </li>
+            <li class="panel flex flex-col">
+              <img src="./images/stone.png" alt="" class="size-12 pixelated" />
+              <h3 class="card-title mt-4">Железное</h3>
+              <p class="mt-1 text-ink-muted">Полная игра навсегда</p>
+              <p class="edition-price">990 ₽</p>
+              <ul class="edition-perks">
+                <li>▪ Все режимы</li>
+                <li>▪ Свой сервер</li>
+                <li>▪ Бесплатные обновления</li>
+              </ul>
+              <a href="#preorder" class="btn btn-primary mt-auto w-full">Купить</a>
+            </li>
+            <li class="panel relative flex flex-col shadow-[0_0_0_4px_var(--color-diamond-400),0_0_32px_var(--color-diamond-400)]">
+              <span class="absolute -top-4 right-4 border-4 border-black bg-diamond-400 px-3 py-0.5 text-sm text-black">Легендарное</span>
+              <img src="./images/diamond.png" alt="" class="size-12 pixelated" />
+              <h3 class="card-title mt-4">Алмазное</h3>
+              <p class="mt-1 text-ink-muted">Для тех, кто копает до конца</p>
+              <p class="edition-price">1990 ₽</p>
+              <ul class="edition-perks">
+                <li>▪ Всё из железного</li>
+                <li>▪ Набор скинов «Офисный планктон»</li>
+                <li>▪ Имя в титрах</li>
+              </ul>
+              <a href="#preorder" class="btn btn-primary mt-auto w-full">Купить</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Системные требования: на узком экране таблица прокручивается вбок внутри панели -->
+      <section data-testid="requirements" class="section section-stone">
+        <div class="container-page">
+          <h2 class="section-title">Системные требования</h2>
+          <div class="panel overflow-x-auto">
+            <table class="w-full min-w-xl text-left [&_tbody_tr]:border-b-2 [&_tbody_tr]:border-black/20 [&_tbody_tr:last-child]:border-b-0 [&_td,&_th]:py-3 [&_td,&_th]:pr-4 md:[&_tr>*:last-child]:pr-0">
+              <thead>
+                <tr class="border-b-4 border-black">
+                  <th scope="col" class="text-lg"><span class="sr-only">Параметр</span></th>
+                  <th scope="col" class="font-heading text-lg font-bold">Минимальные</th>
+                  <th scope="col" class="font-heading text-lg font-bold">Рекомендуемые</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="font-normal text-ink-muted">ОС</th>
+                  <td>Любая, где открывается браузер</td>
+                  <td>Та же, только обновлённая</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="font-normal text-ink-muted">Процессор</th>
+                  <td>Два ядра, 2 ГГц</td>
+                  <td>Четыре ядра и тихий кулер</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="font-normal text-ink-muted">Память</th>
+                  <td>4 ГБ</td>
+                  <td>8 ГБ, если рядом открыто сорок вкладок</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="font-normal text-ink-muted">Видеокарта</th>
+                  <td>Любая, которая рисует квадраты</td>
+                  <td>Та, что рисует квадраты с тенями</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="font-normal text-ink-muted">Место на диске</th>
+                  <td>1 ГБ</td>
+                  <td>1 ГБ плюс всё, что вы построите</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="mt-4 text-sm text-ink-muted">Кластер Kubernetes для игры не нужен, хотя название намекает.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Вопросы: details открывает ответ сам -->
+      <section id="faq" data-testid="faq" class="section">
+        <div class="mx-auto max-w-3xl px-4">
+          <h2 class="section-title">Вопросы</h2>
+          <div class="space-y-4">
+            <details data-testid="faq-item" class="group panel p-0">
+              <summary class="faq-summary">
+                Когда выходит игра?
+                <span aria-hidden="true" class="faq-icon">+</span>
+              </summary>
+              <p class="faq-answer">
+                Релиз намечен на весну. Все, кто оформил предзаказ, получат ключ в день выхода и смогут зайти в мир первыми.
+              </p>
+            </details>
+            <details data-testid="faq-item" class="group panel p-0">
+              <summary class="faq-summary">
+                На чём сделана эта страница?
+                <span aria-hidden="true" class="faq-icon">+</span>
+              </summary>
+              <p class="faq-answer">
+                На HTML и Tailwind CSS. Меню, вкладки, галерея, смена мира и этот вопрос работают без единой строчки JavaScript.
+              </p>
+            </details>
+            <details data-testid="faq-item" class="group panel p-0">
+              <summary class="faq-summary">
+                Можно играть с друзьями?
+                <span aria-hidden="true" class="faq-icon">+</span>
+              </summary>
+              <p class="faq-answer">
+                Да. В железном и алмазном изданиях можно поднять свой сервер. В деревянном играют по очереди за одним компьютером.
+              </p>
+            </details>
+            <details data-testid="faq-item" class="group panel p-0">
+              <summary class="faq-summary">
+                Что будет, если меня взорвёт шипун?
+                <span aria-hidden="true" class="faq-icon">+</span>
+              </summary>
+              <p class="faq-answer">
+                Вы появитесь у своей кровати, а вещи останутся на месте взрыва. Через пять минут они исчезнут, так что бегите.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Предзаказ: проверку полей делает браузер, сообщение показывает :target -->
+      <section id="preorder" data-testid="preorder" class="section border-t-4 border-black tile-stone nether:tile-obsidian">
+        <div class="mx-auto max-w-2xl px-4">
+          <h2 class="section-title">Предзаказ</h2>
+
+          <div id="preorder-done" data-testid="preorder-done" class="peer panel hidden target:block" role="status">
+            <h3 class="text-2xl font-bold">Вы в списке!</h3>
+            <p class="mt-2 text-ink-muted">
+              Ключ придёт на почту в день релиза. Пока можно потренироваться строить из кубиков сахара.
+            </p>
+          </div>
+
+          <form
+            action="#preorder-done"
+            data-testid="preorder-form"
+            class="panel space-y-6 peer-target:hidden"
+          >
+            <div>
+              <label for="nick" class="field-label">Ник в игре</label>
+              <input
+                id="nick"
+                name="nick"
+                type="text"
+                required
+                minlength="3"
+                maxlength="16"
+                pattern="[A-Za-z0-9_]{3,16}"
+                placeholder="stepan_42"
+                autocomplete="nickname"
+                data-testid="field-nick"
+                class="field peer"
+              />
+              <p data-testid="error-nick" class="field-error">
+                От 3 до 16 символов: латиница, цифры и подчёркивание.
+              </p>
+            </div>
+            <div>
+              <label for="email" class="field-label">Почта</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="stepan@example.com"
+                autocomplete="email"
+                data-testid="field-email"
+                class="field peer"
+              />
+              <p data-testid="error-email" class="field-error">
+                Нужен адрес почты, иначе ключу некуда прийти.
+              </p>
+            </div>
+            <div>
+              <label for="platform" class="field-label">Платформа</label>
+              <select
+                id="platform"
+                name="platform"
+                required
+                data-testid="field-platform"
+                class="field peer"
+              >
+                <option value="" disabled selected>Выберите платформу</option>
+                <option>Windows</option>
+                <option>macOS</option>
+                <option>Linux</option>
+                <option>Умный холодильник</option>
+              </select>
+              <p data-testid="error-platform" class="field-error">
+                Выберите платформу.
+              </p>
+            </div>
+            <label class="flex items-center gap-3">
+              <input type="checkbox" name="news" class="size-5 rounded-none border-2 border-black text-accent focus:ring-gold-400" />
+              Присылать новости о патчах
+            </label>
+            <button type="submit" data-testid="preorder-submit" class="btn btn-primary w-full">Оформить предзаказ</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer data-testid="site-footer" class="border-t-4 border-black bg-rock-900 py-10 text-rock-300">
+      <div class="container-page flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <p class="flex items-center gap-3 text-sm">
+          <img src="./images/grass.png" alt="" class="size-6 pixelated" />
+          Kubercraft · 2026
+        </p>
+        <p class="max-w-xl text-sm">
+          Игра в разработке, содержимое изданий и цены могут измениться до релиза. Все права на Kubercraft принадлежат его создателям.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

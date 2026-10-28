@@ -1,0 +1,18 @@
+{
+  "name": "kubercraft-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Лендинг игры Kubercraft на Tailwind CSS без JavaScript",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.5"
+  }
+}
